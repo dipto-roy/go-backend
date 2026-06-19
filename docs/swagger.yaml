@@ -1,3 +1,4 @@
+basePath: /api/v1
 definitions:
   handler.authResponse:
     properties:
@@ -111,8 +112,12 @@ definitions:
       success:
         type: boolean
     type: object
+host: localhost:8080
 info:
   contact: {}
+  description: REST API backend
+  title: Go Backend API
+  version: "1.0"
 paths:
   /auth/login:
     post:
@@ -321,4 +326,10 @@ paths:
       summary: Change current user password
       tags:
       - users
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and the access token
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"
