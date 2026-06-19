@@ -1,5 +1,5 @@
 .env
 bin/
 coverage.out
-docs/
+#docs/
 *.test
