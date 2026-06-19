@@ -1,0 +1,2 @@
+TRUNCATE refresh_tokens CASCADE;
+TRUNCATE users CASCADE;

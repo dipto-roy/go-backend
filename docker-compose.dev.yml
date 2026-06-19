@@ -1,0 +1,43 @@
+services:
+  api:
+    image: golang:1.25-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+      - go-cache:/root/go/pkg/mod
+    command: sh -c "go install github.com/air-verse/air@latest && air"
+    ports:
+      - "8080:8080"
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - backend
+    dns:
+      - 127.0.0.11
+      - 8.8.8.8
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: go_backend
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  go-cache:
