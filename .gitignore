@@ -1,6 +1,7 @@
 .env
+.env.example
 bin/
 coverage.out
 #docs/
 *.test
-.env.example
+
